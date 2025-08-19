@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>For My Love - Mây 💖</title>
+  <meta name="description" content="A tiny love website for my long-distance love" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Handlee&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg1: #ff9a9e; /* pink */
+      --bg2: #fad0c4; /* blush */
+      --ink: #fff;
+      --ink-dark: #3b1b2a;
+      --accent: #ff6b9f;
+      --glass: rgba(255,255,255,.15);
+      --shadow: 0 10px 30px rgba(0,0,0,.15);
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: linear-gradient(135deg, var(--bg1), var(--bg2));
+      overflow-x: hidden;
+    }
+
+    /* Floating hearts background */
+    .hearts { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+    .heart { position: absolute; width: 18px; height: 18px; background: rgba(255,255,255,.7); transform: rotate(45deg); animation: floatUp linear forwards; border-radius: 3px; filter: blur(.2px); }
+    .heart::before, .heart::after { content: ""; position: absolute; width: 18px; height: 18px; background: rgba(255,255,255,.7); border-radius: 50%; }
+    .heart::before { top: -9px; left: 0; }
+    .heart::after  { left: -9px; top: 0; }
+    @keyframes floatUp { to { transform: translateY(-110vh) rotate(45deg); opacity: .05; } }
+
+    /* Hero */
+    header.hero { position: relative; z-index: 1; min-height: 100svh; display: grid; place-items: center; text-align: center; padding: 4rem 1.25rem; }
+    .hero-card { backdrop-filter: blur(6px); background: var(--glass); border: 1px solid rgba(255,255,255,.25); border-radius: 24px; padding: 2rem 1.5rem; max-width: 900px; width: min(92vw, 900px); box-shadow: var(--shadow); }
+    .eyebrow { font: 600 .85rem/1.2 'Poppins', sans-serif; letter-spacing: .12em; text-transform: uppercase; opacity: .9; }
+    h1.title { font-family: 'Handlee', cursive; font-size: clamp(2.2rem, 7vw, 4rem); margin: .35rem 0 1rem; }
+    p.subtitle { font-size: clamp(1rem, 3.6vw, 1.25rem); opacity: .95; margin: 0 auto 1.5rem; max-width: 50ch; }
+
+    .controls { display: flex; gap: .75rem; justify-content: center; flex-wrap: wrap; }
+    .btn { appearance: none; border: 0; border-radius: 999px; padding: .85rem 1.2rem; background: white; color: var(--ink-dark); font-weight: 600; cursor: pointer; box-shadow: var(--shadow); transition: transform .08s ease, box-shadow .2s ease; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn.ghost { background: transparent; color: white; border: 2px solid rgba(255,255,255,.7); }
+
+    .typewriter { display: inline-block; border-right: 2px solid rgba(255,255,255,.9); white-space: nowrap; overflow: hidden; }
+
+    /* Section base */
+    section { position: relative; z-index: 1; padding: 4.5rem 1.25rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-title { text-align: center; font-family: 'Handlee', cursive; font-size: clamp(1.6rem, 5.4vw, 2.4rem); margin: 0 0 1rem; }
+    .section-sub { text-align: center; opacity: .95; margin: 0 auto 2.25rem; max-width: 60ch; }
+
+    /* Gallery */
+    .gallery { display: grid; grid-template-columns: repeat(12, 1fr); gap: .75rem; }
+    .g { position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 1/1; grid-column: span 6; box-shadow: var(--shadow); }
+    .g.tall { grid-row: span 2; aspect-ratio: 3/4; }
+    .g.wide { aspect-ratio: 16/10; grid-column: span 12; }
+    .g img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .g::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.25), rgba(0,0,0,0)); opacity: 0; transition: opacity .25s ease; }
+    .g:hover::after { opacity: 1; }
+
+    /* Timeline */
+    .timeline { display: grid; gap: 1.25rem; }
+    .milestone { display: grid; grid-template-columns: 100px 1fr; gap: 1rem; align-items: start; background: var(--glass); border: 1px solid rgba(255,255,255,.25); border-radius: 16px; padding: 1rem; box-shadow: var(--shadow); opacity: 0; transform: translateY(10px); transition: opacity .6s ease, transform .6s ease; }
+    .milestone.reveal { opacity: 1; transform: translateY(0); }
+    .badge { display: inline-flex; align-items: center; justify-content: center; background: white; color: var(--ink-dark); font-weight: 700; border-radius: 12px; padding: .6rem .7rem; min-height: 44px; text-align: center; }
+
+    /* Footer */
+    footer { text-align: center; padding: 2.5rem 1.25rem 4rem; color: rgba(255,255,255,.9); }
+    .heart-btn { font-size: 1.1rem; }
+
+    /* Small screens */
+    @media (max-width: 680px) {
+      .milestone { grid-template-columns: 1fr; }
+      .badge { justify-self: start; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Animated floating hearts background -->
+  <div class="hearts" aria-hidden="true"></div>
+
+  <header class="hero">
+    <div class="hero-card">
+      <div class="eyebrow">Gửi bé Mây của anh</div>
+      <h1 class="title">
+        <span id="typewriter" class="typewriter" aria-live="polite"></span>
+      </h1>
+      <p class="subtitle">Dù xa cách, trái tim mình vẫn chung nhịp. Mỗi khoảnh khắc bên em—dù là qua màn hình—đều đáng nhớ. 💞</p>
+      <div class="controls">
+        <button id="playMusic" class="btn" aria-pressed="false">▶️ Phát nhạc</button>
+        <a class="btn ghost" href="#gallery">Xem album ảnh</a>
+        <a class="btn ghost" href="#timeline">Dòng thời gian</a>
+      </div>
+    </div>
+  </header>
+
+  <section id="gallery">
+    <div class="container">
+      <h2 class="section-title">Những khoảnh khắc </h2>
+      <p class="section-sub">Thay ảnh bên dưới bằng ảnh của hai bạn (thư mục <code>images/</code>). Ảnh sẽ tự co giãn trên di động.</p>
+      <div class="gallery">
+        <!-- Replace src with your photos in images/ -->
+        <figure class="g tall"><img src="https://images.unsplash.com/photo-1512100356356-de1b84283e18?q=80&w=1200&auto=format&fit=crop" alt="Memory 1"></figure>
+        <figure class="g"><img src="https://images.unsplash.com/photo-1518904328306-f1c2fb83a73c?q=80&w=1200&auto=format&fit=crop" alt="Memory 2"></figure>
+        <figure class="g wide"><img src="https://images.unsplash.com/photo-1519222970733-f546218fa6d7?q=80&w=1600&auto=format&fit=crop" alt="Memory 3"></figure>
+        <figure class="g"><img src="https://images.unsplash.com/photo-1487412912498-0447578fcca8?q=80&w=1200&auto=format&fit=crop" alt="Memory 4"></figure>
+        <figure class="g tall"><img src="https://images.unsplash.com/photo-1521069483380-9b087227f2f3?q=80&w=1200&auto=format&fit=crop" alt="Memory 5"></figure>
+        <figure class="g"><img src="https://images.unsplash.com/photo-1551836022-4c4c79ecde51?q=80&w=1200&auto=format&fit=crop" alt="Memory 6"></figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="timeline">
+    <div class="container">
+      <h2 class="section-title">Dòng thời gian yêu xa</h2>
+      <p class="section-sub">Điền mốc thời gian của hai bạn – ngày quen nhau, lần gặp đầu, lời hứa nhỏ…</p>
+      <div class="timeline">
+        <div class="milestone"><div class="badge">23·05·2025</div><div><strong>Chúng ta bắt đầu nói chuyện</strong><br/>Một cuộc trò chuyện ngắn ngủi đầu tiên.</div></div>
+        <div class="milestone"><div class="badge">08·06·2025</div><div><strong>Lời tỏ tình</strong><br/>Ngày anh vui nhất , em đòng ý làm người yêu anh.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Cảm ơn em vì đã ở đây. Anh yêu em nhiều lắm. 💗</p>
+    <button id="celebrate" class="btn heart-btn">💝 Chạm để tung hoa giấy</button>
+  </footer>
+
+  <!-- Audio (put your song at music/your-song.mp3) -->
+  <audio id="bgm" preload="auto" src="music/your-song.mp3"></audio>
+
+  <script>
+    // ------- Floating hearts -------
+    const heartsLayer = document.querySelector('.hearts');
+    const random = (min, max) => Math.random() * (max - min) + min;
+    function spawnHeart() {
+      const h = document.createElement('div');
+      h.className = 'heart';
+      const size = random(12, 26);
+      h.style.width = h.style.height = size + 'px';
+      h.style.left = random(0, 100) + 'vw';
+      const dur = random(5, 10);
+      h.style.animationDuration = dur + 's';
+      h.style.opacity = random(.25, .9);
+      heartsLayer.appendChild(h);
+      setTimeout(() => h.remove(), dur * 1000);
+    }
+    setInterval(spawnHeart, 400);
+
+    // ------- Typewriter lines -------
+    const lines = [
+      'Gửi Mây, người anh yêu nhất ♡',
+      'Khoảng cách chỉ làm tình yêu lớn hơn',
+      'Mỗi ngày đều muốn nói: Anh yêu bé',
+    ];
+    const tw = document.getElementById('typewriter');
+    let li = 0, ci = 0, deleting = false;
+    function typeLoop() {
+      const current = lines[li];
+      if (!deleting) {
+        ci++;
+        tw.textContent = current.slice(0, ci);
+        if (ci === current.length) {
+          deleting = true;
+          setTimeout(typeLoop, 1500);
+          return;
+        }
+      } else {
+        ci--;
+        tw.textContent = current.slice(0, ci);
+        if (ci === 0) {
+          deleting = false;
+          li = (li + 1) % lines.length;
+        }
+      }
+      setTimeout(typeLoop, deleting ? 40 : 75);
+    }
+    typeLoop();
+
+    // ------- Reveal milestones on scroll -------
+    const observer = new IntersectionObserver((entries)=>{
+      for(const e of entries){ if(e.isIntersecting) e.target.classList.add('reveal'); }
+    }, { threshold: 0.2 });
+    document.querySelectorAll('.milestone').forEach(m=>observer.observe(m));
+
+    // ------- Music controls (user gesture required for autoplay on mobile) -------
+    const btnPlay = document.getElementById('playMusic');
+    const audio = document.getElementById('bgm');
+    let playing = false;
+    btnPlay.addEventListener('click', async ()=>{
+      try {
+        if (!playing) { await audio.play(); playing = true; btnPlay.textContent = '⏸️ Tạm dừng nhạc'; btnPlay.setAttribute('aria-pressed','true'); }
+        else { audio.pause(); playing = false; btnPlay.textContent = '▶️ Phát nhạc'; btnPlay.setAttribute('aria-pressed','false'); }
+      } catch(e) { console.log('Audio error', e); }
+    });
+
+    // ------- Confetti celebration -------
+    const celebrateBtn = document.getElementById('celebrate');
+    celebrateBtn.addEventListener('click', () => {
+      burstConfetti();
+    });
+
+    function burstConfetti(){
+      const n = 120;
+      for(let i=0;i<n;i++){
+        const c = document.createElement('div');
+        c.style.position='fixed';
+        c.style.inset='0 auto auto 0';
+        c.style.left = (Math.random()*100)+'vw';
+        c.style.top = '-10px';
+        c.style.width = c.style.height = (6+Math.random()*6)+'px';
+        c.style.background = `hsl(${Math.floor(Math.random()*360)} 90% 60%)`;
+        c.style.transform = `translateY(0) rotate(${Math.random()*360}deg)`;
+        c.style.opacity = .95;
+        c.style.pointerEvents='none';
+        c.style.borderRadius = Math.random()>.7 ? '50%' : '2px';
+        c.style.zIndex = 9999;
+        document.body.appendChild(c);
+        const fall = c.animate([
+          { transform: c.style.transform, opacity: .95 },
+          { transform: `translateY(${105+Math.random()*40}vh) rotate(${360+Math.random()*360}deg)`, opacity: .9 }
+        ], { duration: 2000+Math.random()*1200, easing: 'cubic-bezier(.17,.67,.32,1.01)' });
+        fall.onfinish = ()=> c.remove();
+      }
+    }
+  </script>
+</body>
+</html>
